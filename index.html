@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>فديوهات مجانيه - Link in Bio</title>
+  <meta name="description" content="شاهد وستمتع - صفحة روابط شخصية قابلة للنشر على GitHub Pages - مجانية ومرنة">
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#9aa4b2;--glass:rgba(255,255,255,0.03)}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Arial,sans-serif;background:linear-gradient(180deg,#051024 0%, #07142a 100%);color:#fff;margin:0;padding:24px;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .wrap{width:100%;max-width:720px}
+    .card{background:var(--card);border-radius:18px;padding:28px;text-align:center;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    img.avatar{width:110px;height:110px;border-radius:999px;object-fit:cover;border:3px solid rgba(255,255,255,0.06)}
+    h1{margin:14px 0 6px;font-size:22px}
+    p.bio{margin:0 0 18px;color:var(--muted)}
+    .links{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+    .link{background:var(--glass);padding:12px 16px;border-radius:12px;text-decoration:none;color:#fff;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+    .link small{display:block;color:var(--muted);font-weight:500;font-size:12px}
+    .meta{margin-top:14px;color:var(--muted);font-size:13px}
+    .toprow{display:flex;gap:10px;justify-content:center}
+    .btn{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);cursor:pointer}
+    footer{margin-top:12px;text-align:center;color:var(--muted);font-size:12px}
+    .flex-row{display:flex;gap:8px;justify-content:center}
+    @media(max-width:520px){.card{padding:20px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="page">
+      <img src="https://cdn.jsdelivr.net/gh/identicons/avatar@master/default.png" alt="avatar" class="avatar" id="avatar">
+      <h1 id="title">فديوهات مجانيه</h1>
+      <p class="bio" id="bio">شاهد وستمتع</p><div class="links" id="links"></div>
+
+  <div class="meta">
+    <div>إجمالي الزيارات: <span id="totalClicks">0</span></div>
+    <div class="flex-row" style="margin-top:8px">
+      <button class="btn" id="editBtn">تعديل (تحرير محلي)</button>
+      <button class="btn" id="resetBtn">استعادة الافتراضي</button>
+    </div>
+  </div>
+
+  <footer style="margin-top:16px">مُعد بواسطة صفحة بسيطة - انشرها على GitHub Pages مجانًا</footer>
+</div>
+
+  </div>  <script id="__site_config" type="application/json">
+  {
+    "title":"فديوهات مجانيه",
+    "bio":"شاهد وستمتع",
+    "avatar":"https://cdn.jsdelivr.net/gh/identicons/avatar@master/default.png",
+    "links":[]
+  }
+  </script>  <script>
+    const cfg = JSON.parse(document.getElementById('__site_config').textContent);
+    const titleEl = document.getElementById('title');
+    const bioEl = document.getElementById('bio');
+    const avatarEl = document.getElementById('avatar');
+    const linksEl = document.getElementById('links');
+    const totalEl = document.getElementById('totalClicks');
+
+    function loadState(){
+      titleEl.textContent = cfg.title || 'اسمك هنا';
+      bioEl.textContent = cfg.bio || '';
+      avatarEl.src = cfg.avatar || avatarEl.src;
+      linksEl.innerHTML = '';
+      const saved = JSON.parse(localStorage.getItem('__link_clicks') || '{}');
+      let total = 0;
+      cfg.links.forEach(l=>{
+        const count = saved[l.id] || 0;
+        total += count;
+        const a = document.createElement('a');
+        a.className = 'link';
+        a.href = l.url;
+        a.target = '_blank';
+        a.rel = 'nofollow noopener noreferrer';
+        a.innerHTML = `<div><div>${l.title}</div><small>${l.subtitle || ''}</small></div><div>${count}</div>`;
+        a.addEventListener('click', ()=>{ increment(l.id) });
+        linksEl.appendChild(a);
+      });
+      totalEl.textContent = total;
+    }
+
+    function increment(id){
+      const saved = JSON.parse(localStorage.getItem('__link_clicks') || '{}');
+      saved[id] = (saved[id] || 0) + 1;
+      localStorage.setItem('__link_clicks', JSON.stringify(saved));
+      setTimeout(loadState, 120);
+    }
+
+    document.getElementById('editBtn').addEventListener('click', ()=>{
+      const s = JSON.stringify(cfg, null, 2);
+      const res = prompt('الصق هنا JSON إعدادات الصفحة: (سيحل محل الإعداد الحالي)', s);
+      if(!res) return;
+      try{
+        const obj = JSON.parse(res);
+        localStorage.setItem('__site_config_preview', JSON.stringify(obj));
+        alert('تم حفظ المعاينة محليًا. عدّل الملف لرفع التغييرات على GitHub.');
+        location.reload();
+      }catch(e){alert('خطأ في صيغة JSON: '+e.message)}
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      if(confirm('هل تريد إزالة بيانات النقرات المحلية واستعادة القيم الافتراضية؟')){
+        localStorage.removeItem('__link_clicks');
+        localStorage.removeItem('__site_config_preview');
+        location.reload();
+      }
+    });
+
+    const preview = localStorage.getItem('__site_config_preview');
+    if(preview){
+      try{ Object.assign(cfg, JSON.parse(preview)); }catch(e){console.warn('preview json invalid',e)}
+    }
+
+    loadState();
+  </script></body>
+</html>
