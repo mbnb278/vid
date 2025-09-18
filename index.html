@@ -1,118 +1,105 @@
 <!doctype html>
-
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>فديوهات مجانيه - Link in Bio</title>
-  <meta name="description" content="شاهد وستمتع - صفحة روابط شخصية قابلة للنشر على GitHub Pages - مجانية ومرنة">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KARRAR R HAMED</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#9aa4b2;--glass:rgba(255,255,255,0.03)}
+    :root{
+      --bg:#e6eef7;
+      --surface:#e9f1fb;
+      --shadow-dark: rgba(163,177,198,0.35);
+      --shadow-light: rgba(255,255,255,0.9);
+      --accent:#7c3aed;
+      --muted:#6b7280;
+      --text:#0f1724;
+    }
     *{box-sizing:border-box}
-    body{font-family:system-ui,Arial,sans-serif;background:linear-gradient(180deg,#051024 0%, #07142a 100%);color:#fff;margin:0;padding:24px;display:flex;align-items:center;justify-content:center;min-height:100vh}
-    .wrap{width:100%;max-width:720px}
-    .card{background:var(--card);border-radius:18px;padding:28px;text-align:center;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
-    img.avatar{width:110px;height:110px;border-radius:999px;object-fit:cover;border:3px solid rgba(255,255,255,0.06)}
-    h1{margin:14px 0 6px;font-size:22px}
-    p.bio{margin:0 0 18px;color:var(--muted)}
-    .links{display:flex;flex-direction:column;gap:12px;margin-top:8px}
-    .link{background:var(--glass);padding:12px 16px;border-radius:12px;text-decoration:none;color:#fff;font-weight:600;display:flex;justify-content:space-between;align-items:center}
-    .link small{display:block;color:var(--muted);font-weight:500;font-size:12px}
-    .meta{margin-top:14px;color:var(--muted);font-size:13px}
-    .toprow{display:flex;gap:10px;justify-content:center}
-    .btn{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);cursor:pointer}
-    footer{margin-top:12px;text-align:center;color:var(--muted);font-size:12px}
-    .flex-row{display:flex;gap:8px;justify-content:center}
-    @media(max-width:520px){.card{padding:20px}}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+    .card{
+      width:100%;
+      max-width:760px;
+      background:var(--surface);
+      border-radius:24px;
+      padding:42px;
+      box-shadow: 18px 18px 36px var(--shadow-dark), -18px -18px 36px var(--shadow-light);
+      border:1px solid rgba(255,255,255,0.6);
+    }
+    .title{
+      font-size:40px;
+      font-weight:800;
+      letter-spacing:6px;
+      margin:0 0 20px 0;
+      text-transform:uppercase;
+      text-align:center;
+      color:var(--text);
+    }
+    .links{display:flex;flex-direction:column;gap:18px;align-items:center}
+    .btn{
+      width:100%;
+      max-width:520px;
+      display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:14px;text-decoration:none;font-weight:700;
+      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+      color:var(--text);
+      box-shadow: 8px 8px 16px rgba(163,177,198,0.25), -8px -8px 16px rgba(255,255,255,0.8);
+      border:1px solid rgba(0,0,0,0.04);
+      transition:transform .14s ease, box-shadow .14s ease;
+    }
+    .btn:active{transform:translateY(2px)}
+    .btn .icon{width:22px;height:22px;display:inline-block;flex:0 0 22px}
+    .email{margin-top:20px;color:var(--muted);font-weight:600;text-align:center}
+    .email-box{
+      display:inline-block;margin-top:12px;padding:10px 16px;border-radius:12px;background:var(--surface);
+      box-shadow: inset 6px 6px 12px rgba(163,177,198,0.18), inset -6px -6px 12px rgba(255,255,255,0.9);
+      border:1px solid rgba(255,255,255,0.6);
+    }
+    @media (max-width:520px){
+      .card{padding:28px}
+      .title{font-size:28px}
+      .btn{max-width:100%}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" id="page">
-      <img src="https://cdn.jsdelivr.net/gh/identicons/avatar@master/default.png" alt="avatar" class="avatar" id="avatar">
-      <h1 id="title">فديوهات مجانيه</h1>
-      <p class="bio" id="bio">شاهد وستمتع</p><div class="links" id="links"></div>
-
-  <div class="meta">
-    <div>إجمالي الزيارات: <span id="totalClicks">0</span></div>
-    <div class="flex-row" style="margin-top:8px">
-      <button class="btn" id="editBtn">تعديل (تحرير محلي)</button>
-      <button class="btn" id="resetBtn">استعادة الافتراضي</button>
+  <main class="card" role="main">
+    <h1 class="title">KARRAR R HAMED</h1>
+    <div class="links">
+      <a class="btn" href="https://www.instagram.com/slmy.107tt?igsh=dTNwc3ZtbnczYTdq" target="_blank" rel="noopener noreferrer">
+        <span class="icon" aria-hidden>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.4"/><path d="M12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        </span>
+        Instagram
+      </a>
+      <a class="btn" href="https://www.tiktok.com/@m333es?_t=ZS-8zoiCzF8a5o&_r=1" target="_blank" rel="noopener noreferrer">
+        <span class="icon" aria-hidden>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="22" height="22" fill="currentColor"><path d="M232 72a71.6 71.6 0 0 1-40-12.2V168a60 60 0 1 1-69.5-59.4 59.6 59.6 0 0 1 21.5.1V88.9a92.7 92.7 0 0 0-21.5-2.5A92 92 0 1 0 216 178V93.5a71.6 71.6 0 0 1-40-12.2V72a71.6 71.6 0 0 0 40 12.2Z"/></svg>
+        </span>
+        TikTok
+      </a>
+      <a class="btn" href="https://t.me/+-h9Kscrrci9kOGIy" target="_blank" rel="noopener noreferrer">
+        <span class="icon" aria-hidden>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 3L3 10.5l5 1.9L9.5 20 11 15l9.5-12z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Telegram Channel
+      </a>
+      <div class="email">
+        Email:
+        <div class="email-box"><a href="mailto:mbnb278@gmail.com" style="color:var(--text);text-decoration:none;font-weight:700;">mbnb278@gmail.com</a></div>
+      </div>
     </div>
-  </div>
-
-  <footer style="margin-top:16px">مُعد بواسطة صفحة بسيطة - انشرها على GitHub Pages مجانًا</footer>
-</div>
-
-  </div>  <script id="__site_config" type="application/json">
-  {
-    "title":"فديوهات مجانيه",
-    "bio":"شاهد وستمتع",
-    "avatar":"https://cdn.jsdelivr.net/gh/identicons/avatar@master/default.png",
-    "links":[]
-  }
-  </script>  <script>
-    const cfg = JSON.parse(document.getElementById('__site_config').textContent);
-    const titleEl = document.getElementById('title');
-    const bioEl = document.getElementById('bio');
-    const avatarEl = document.getElementById('avatar');
-    const linksEl = document.getElementById('links');
-    const totalEl = document.getElementById('totalClicks');
-
-    function loadState(){
-      titleEl.textContent = cfg.title || 'اسمك هنا';
-      bioEl.textContent = cfg.bio || '';
-      avatarEl.src = cfg.avatar || avatarEl.src;
-      linksEl.innerHTML = '';
-      const saved = JSON.parse(localStorage.getItem('__link_clicks') || '{}');
-      let total = 0;
-      cfg.links.forEach(l=>{
-        const count = saved[l.id] || 0;
-        total += count;
-        const a = document.createElement('a');
-        a.className = 'link';
-        a.href = l.url;
-        a.target = '_blank';
-        a.rel = 'nofollow noopener noreferrer';
-        a.innerHTML = `<div><div>${l.title}</div><small>${l.subtitle || ''}</small></div><div>${count}</div>`;
-        a.addEventListener('click', ()=>{ increment(l.id) });
-        linksEl.appendChild(a);
-      });
-      totalEl.textContent = total;
-    }
-
-    function increment(id){
-      const saved = JSON.parse(localStorage.getItem('__link_clicks') || '{}');
-      saved[id] = (saved[id] || 0) + 1;
-      localStorage.setItem('__link_clicks', JSON.stringify(saved));
-      setTimeout(loadState, 120);
-    }
-
-    document.getElementById('editBtn').addEventListener('click', ()=>{
-      const s = JSON.stringify(cfg, null, 2);
-      const res = prompt('الصق هنا JSON إعدادات الصفحة: (سيحل محل الإعداد الحالي)', s);
-      if(!res) return;
-      try{
-        const obj = JSON.parse(res);
-        localStorage.setItem('__site_config_preview', JSON.stringify(obj));
-        alert('تم حفظ المعاينة محليًا. عدّل الملف لرفع التغييرات على GitHub.');
-        location.reload();
-      }catch(e){alert('خطأ في صيغة JSON: '+e.message)}
-    });
-
-    document.getElementById('resetBtn').addEventListener('click', ()=>{
-      if(confirm('هل تريد إزالة بيانات النقرات المحلية واستعادة القيم الافتراضية؟')){
-        localStorage.removeItem('__link_clicks');
-        localStorage.removeItem('__site_config_preview');
-        location.reload();
-      }
-    });
-
-    const preview = localStorage.getItem('__site_config_preview');
-    if(preview){
-      try{ Object.assign(cfg, JSON.parse(preview)); }catch(e){console.warn('preview json invalid',e)}
-    }
-
-    loadState();
-  </script></body>
+  </main>
+</body>
 </html>
